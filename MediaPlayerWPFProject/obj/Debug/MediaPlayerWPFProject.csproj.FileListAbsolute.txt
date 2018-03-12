@@ -1,0 +1,14 @@
+c:\users\amr\documents\visual studio 2017\Projects\MediaPlayer_MainWindow\MediaPlayerWPFProject\bin\Debug\MediaPlayerWPFProject.exe
+c:\users\amr\documents\visual studio 2017\Projects\MediaPlayer_MainWindow\MediaPlayerWPFProject\bin\Debug\MediaPlayerWPFProject.pdb
+c:\users\amr\documents\visual studio 2017\Projects\MediaPlayer_MainWindow\MediaPlayerWPFProject\obj\Debug\MediaPlayerWPFProject.csprojResolveAssemblyReference.cache
+c:\users\amr\documents\visual studio 2017\Projects\MediaPlayer_MainWindow\MediaPlayerWPFProject\obj\Debug\MainWindow.g.cs
+c:\users\amr\documents\visual studio 2017\Projects\MediaPlayer_MainWindow\MediaPlayerWPFProject\obj\Debug\App.g.cs
+c:\users\amr\documents\visual studio 2017\Projects\MediaPlayer_MainWindow\MediaPlayerWPFProject\obj\Debug\MediaPlayerWPFProject_MarkupCompile.cache
+c:\users\amr\documents\visual studio 2017\Projects\MediaPlayer_MainWindow\MediaPlayerWPFProject\obj\Debug\MediaPlayerWPFProject_MarkupCompile.lref
+c:\users\amr\documents\visual studio 2017\Projects\MediaPlayer_MainWindow\MediaPlayerWPFProject\obj\Debug\MainWindow.baml
+c:\users\amr\documents\visual studio 2017\Projects\MediaPlayer_MainWindow\MediaPlayerWPFProject\obj\Debug\MediaPlayerWPFProject.g.resources
+c:\users\amr\documents\visual studio 2017\Projects\MediaPlayer_MainWindow\MediaPlayerWPFProject\obj\Debug\MediaPlayerWPFProject.Properties.Resources.resources
+c:\users\amr\documents\visual studio 2017\Projects\MediaPlayer_MainWindow\MediaPlayerWPFProject\obj\Debug\MediaPlayerWPFProject.csproj.GenerateResource.Cache
+c:\users\amr\documents\visual studio 2017\Projects\MediaPlayer_MainWindow\MediaPlayerWPFProject\obj\Debug\MediaPlayerWPFProject.exe
+c:\users\amr\documents\visual studio 2017\Projects\MediaPlayer_MainWindow\MediaPlayerWPFProject\obj\Debug\MediaPlayerWPFProject.pdb
+C:\Users\Amr\documents\visual studio 2017\Projects\MediaPlayer_MainWindow\MediaPlayerWPFProject\obj\Debug\MediaPlayerWPFProject.csproj.CoreCompileInputs.cache
