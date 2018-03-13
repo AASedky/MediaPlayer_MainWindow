@@ -5,55 +5,110 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MediaPlayerWPFProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="425" Width="521"
+        Title="MainWindow" Height="458" Width="800.85"
         Name="AppMainWindow"
          
-        SizeChanged="AppMainWindow_SizeChanged"
-        >
+         Icon="imgs/HawklOGO.png">
     <Grid >
-
-
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <MediaElement Stretch="Fill" x:Name="_MainMediaPlayer" LoadedBehavior="Manual"  MediaOpened="_MainMediaPlayer_MediaOpened" RenderTransformOrigin="0.5,0.5" Grid.Row="0" Grid.RowSpan="2" />
         <Slider DockPanel.Dock="Top"   Name="MediaSlider" Thumb.DragCompleted="MediaSlider_DragCompleted" Margin="0,315,0,56"  Grid.Row="1"/>
-
         <DockPanel Margin="63,331,-59,0" RenderTransformOrigin="0.5,0.5" Grid.Row="1" HorizontalAlignment="Center" Width="509" >
-
             <ToolBar DockPanel.Dock="Top" Name="TBMediaControl" Height="50"  
                      ButtonBase.Click="MediaControl_Click" HorizontalContentAlignment="Center" 
-                     HorizontalAlignment="Right" Width="457" Margin="0,0,52,0" Background="Transparent">
+                     HorizontalAlignment="Right" Width="509" Background="Transparent">
                 <Button x:Name="Stop" >
-                    <Image   Source="D:\WPF\Stop.png"/>
+                    <Image   Source="imgs/STOP.png"/>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock FontWeight="Bold">Stop Button</TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
                 <Button x:Name="FF">
-                    <Image Source="D:\WPF\FF.png"/>
+                    <Image Source="imgs/FF.png"/>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock FontWeight="Bold">Fast Forward Button</TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
 
                 <Button x:Name="Rewind">
-                    <Image Source="D:\WPF\Rewind.png"/>
+                    <Image Source="imgs/Rewind.png"/>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock FontWeight="Bold">Rewind Button</TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
                 <Button x:Name="Play" >
-                    <Image Name="PlayPause"  Source="D:\WPF\Play.png"/>
+                    <Image Name="PlayPause"  Source="imgs/Play.png"/>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock FontWeight="Bold">Play/Pause Button</TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
-                <Label x:Name="LblTime" Content="{Binding Position, ElementName=_MainMediaPlayer}" Width="76"/>
-                <Slider Name="SoundBar" Maximum="100" Width="82" Margin="0,10,0,5" ValueChanged="SoundBar_ValueChanged"/>
+                <Label x:Name="LblTime" Content="{Binding Position, ElementName=_MainMediaPlayer}" Width="54" />
+                <Label x:Name="LblAllTime" Content="{Binding Position, ElementName=_MainMediaPlayer}" Width="54" />
+                <Slider Name="SoundBar" Maximum="100" Width="82" Margin="0,10,0,5" ValueChanged="SoundBar_ValueChanged">
+                    <Slider.ToolTip>
+                        <ToolTip>
+                            <TextBlock>Volume Bar</TextBlock>
+                        </ToolTip>
+                    </Slider.ToolTip>
+                </Slider>
                 <Button x:Name="FullScreen" >
-                    <Image Source="D:\WPF\fullscreen.png"/>
+                    <Image Source="imgs/fullscreen.png"/>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock  FontWeight="Bold" > Full Screen Mode</TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
-                <Button x:Name="PlayList" Content="p" Margin="0,12,0,11" Width="18" Click="PlayList_Click"/>
+                <Button x:Name="PlayList"  Margin="0,10,0,11" Height="24" Width="24">
 
+                    <Image Source="imgs/Playlist.png" Height="14" Width="24"  />
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock  FontWeight="Bold" >Open Play List</TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+                <Button x:Name="Open"  Margin="0,10,0,11"    Height="24" Width="24">
+
+                    <Image Source="imgs/open.png" Height="14" Width="18"  />
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock  FontWeight="Bold" >Open Media</TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
             </ToolBar>
         </DockPanel>
-        <TreeView Name="TVPList" HorizontalAlignment="Left" Height="384" Grid.RowSpan="2" VerticalAlignment="Top" Width="114" MouseEnter="TreeView_MouseEnter" MouseLeave="TreeView_MouseLeave">
-            <TreeView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="_New Play List"/>
-                </ContextMenu>
-            </TreeView.ContextMenu>
-        </TreeView>
+        <DockPanel  Background="Transparent" Name="PlayListToShow" HorizontalAlignment="Left" Height="348" LastChildFill="False" Margin="4,5,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="246" MouseEnter="PlayListToShow_MouseEnter" MouseLeave="PlayListToShow_MouseLeave">
+            <TreeView   Name="TVPList" HorizontalAlignment="Left" Height="384" Grid.RowSpan="2" VerticalAlignment="Top" Width="114" MouseEnter="TreeView_MouseEnter" MouseLeave="TreeView_MouseLeave" Visibility="Collapsed">
+
+                <TreeViewItem Name="PlayListRoot" Header="Play List"  >
+                    <TreeViewItem.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem  Name="MI_AddSongs"  Header="Add Songs" Click="MI_AddSongs_Click"/>
+                        </ContextMenu>
+                    </TreeViewItem.ContextMenu>
+                    <TreeViewItem.ToolTip>
+                        <ToolTip>
+                            <TextBlock >Click Right To Deal With Me</TextBlock>
+                        </ToolTip>
+                    </TreeViewItem.ToolTip>
+                </TreeViewItem>
+
+            </TreeView>
+
+        </DockPanel>
 
     </Grid>
 
@@ -61,12 +116,10 @@
         <TaskbarItemInfo x:Name="TaskProgressInfo" ProgressValue="0" ProgressState="Normal"  >
             <TaskbarItemInfo.ThumbButtonInfos >
                 <ThumbButtonInfoCollection>
-                    <ThumbButtonInfo ImageSource="D:\WPF\Stop.png" Description="Stop Media"
-                                     Command="MediaCommands.Stop"/>
+                    <ThumbButtonInfo ImageSource="imgs/STOP.png" Description="Stop Media"/>
                     <ThumbButtonInfo x:Name="BtnTask" 
-                                     Click="BtnTask_Click"
+                                     
                                      Description="Pause Media" />
-
                 </ThumbButtonInfoCollection>
 
             </TaskbarItemInfo.ThumbButtonInfos>

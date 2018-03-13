@@ -13,18 +13,21 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using Microsoft.Win32;
-using System.IO;
+ 
 using System.Windows.Threading;
+using System.Reflection;
+
 namespace MediaPlayerWPFProject
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    /// Amr Ashraf Ismail Sedky
     /// 
     /// 
     public partial class MainWindow : Window
     {
         DispatcherTimer DT;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -34,10 +37,11 @@ namespace MediaPlayerWPFProject
             };
             DT.Tick += DT_Tick;
             SoundBar.Value = 100;
- 
+            
         }
-        private void OpenMedia()
+        private bool OpenMedia()
         {
+            bool isOpend = false;
             OpenFileDialog browser = new OpenFileDialog();
             browser.Filter = "videos files (*.mp4)|*.mp4|(*.AVI)|*.AVI|(*.wma)|*.wma|Sound (*.mp3)|*.mp3";
             bool? result = browser.ShowDialog();
@@ -47,8 +51,9 @@ namespace MediaPlayerWPFProject
                 Title = browser.SafeFileName;
                 _MainMediaPlayer.Play();
                 DT.Start();
+                isOpend =  true;
             }
-            Icon = new BitmapImage(new Uri(@"C:\Users\Amr\Pictures\HawklOGO.png"));
+            return isOpend;
         }
         private void MediaSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
@@ -62,7 +67,28 @@ namespace MediaPlayerWPFProject
             {
                 TaskProgressInfo.ProgressValue = _MainMediaPlayer.Position.TotalSeconds / _MainMediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
             }
+            
             BtnTask.ImageSource = PlayPause.Source;
+        }
+        private void PlayMedia(Button btn)
+        {
+            bool result = false;
+            if (_MainMediaPlayer.Source == null)
+            {
+                result = OpenMedia();
+                if (result == true)
+                {
+                    btn.Name = "Pause";
+                    string Pausepath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"imgs\Pause.png");
+                    PlayPause.Source = new BitmapImage(new Uri(Pausepath));
+                }
+            }
+            else
+            {
+                btn.Name = "Pause";
+                string Pausepath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"imgs\Pause.png");
+                PlayPause.Source = new BitmapImage(new Uri(Pausepath));
+            }
         }
         private void MediaControl_Click(object sender, RoutedEventArgs e)
         {
@@ -73,19 +99,14 @@ namespace MediaPlayerWPFProject
                 {
                     case "Play":
                         _MainMediaPlayer.Play();
-                        if (_MainMediaPlayer.Source == null)
-                        {
-                            OpenMedia();
-                        }
-
-                        btn.Name = "Pause";
-                        PlayPause.Source = new BitmapImage(new Uri(@"D:\WPF\Pause.png"));
+                        PlayMedia(btn);
 
                         break;
                     case "Pause":
                         _MainMediaPlayer.Pause();
                         btn.Name = "Play";
-                        PlayPause.Source = new BitmapImage(new Uri(@"D:\WPF\Play.png"));
+                        string Playpath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"imgs\Play.Png");
+                        PlayPause.Source = new BitmapImage(new Uri(Playpath));
                         break;
                     case "Stop":
                         _MainMediaPlayer.Stop();
@@ -103,19 +124,33 @@ namespace MediaPlayerWPFProject
                     case "PlayList":
                         TVPList.Visibility = Visibility.Visible;
                         break;
+                    case "Open":
+                        bool result = OpenMedia();
+                        if (result == true)
+                        {
+                             Play.Name = "Pause";
+                            string Pausepath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"imgs\Pause.png");
+                            PlayPause.Source = new BitmapImage(new Uri(Pausepath));
+                        }
+
+                        break;
                 }
             }
         }
         private void _MainMediaPlayer_MediaOpened(object sender, RoutedEventArgs e)
         {
             MediaSlider.Maximum = _MainMediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
+            LblAllTime.Content = _MainMediaPlayer.NaturalDuration.TimeSpan;
             if (_MainMediaPlayer.HasVideo)
             {
-                TaskProgressInfo.Overlay = new BitmapImage(new Uri(@"D:\WPF\video.ico"));
+
+                string VideoIconpath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"imgs\video.ico");
+                TaskProgressInfo.Overlay = new BitmapImage(new Uri(VideoIconpath));
             }
             else
             {
-                TaskProgressInfo.Overlay = new BitmapImage(new Uri(@"D:\WPF\music.png"));
+                string MusicIconpath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"imgs\music.png");
+                TaskProgressInfo.Overlay = new BitmapImage(new Uri(MusicIconpath));
             }
         }
 
@@ -124,30 +159,64 @@ namespace MediaPlayerWPFProject
             _MainMediaPlayer.Volume = SoundBar.Value / 100;
         }
 
-        private void AppMainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            //TBMediaControl.Width = AppMainWindow.ActualWidth;
-        }
-
-        private void BtnTask_Click(object sender, EventArgs e)
-        {
-            
-        }
-
+      
         private void TreeView_MouseEnter(object sender, MouseEventArgs e)
         {
-            TVPList.Visibility = Visibility.Visible;
+            //TVPList.Visibility = Visibility.Visible;
         }
 
         private void TreeView_MouseLeave(object sender, MouseEventArgs e)
         {
-            TVPList.Visibility = Visibility.Hidden;
+            //TVPList.Visibility = Visibility.Collapsed;
 
         }
 
-        private void PlayList_Click(object sender, RoutedEventArgs e)
-        {
+      
 
+        private void MI_AddSongs_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog browser = new OpenFileDialog()
+            {
+                Multiselect = true,
+                Title="Select Media to Add To Playlist",
+                Filter= "videos files(*.mp4) | *.mp4 | (*.AVI) | *.AVI | (*.wma) | *.wma | Sound(*.mp3) | *.mp3"
+
+            };
+            browser.ShowDialog();
+           
+             foreach(string element in browser.FileNames)
+             {
+                PlayListRoot.Items.Add( new TreeViewItem { Header = element 
+                 
+
+                });
+             }
+             
+            foreach(TreeViewItem element in PlayListRoot.Items)
+            {
+                 
+                element.ToolTip = "Double Click to Run";
+                element.MouseDoubleClick += Element_MouseDoubleClick;
+            }
+        }
+
+        private void Element_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            _MainMediaPlayer.Source = new Uri( ((TreeViewItem)sender).Header.ToString());
+            _MainMediaPlayer.Play();
+            Play.Name = "Pause";
+            string Pausepath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"imgs\Pause.png");
+            PlayPause.Source = new BitmapImage(new Uri(Pausepath));
+        }
+
+        private void PlayListToShow_MouseEnter(object sender, MouseEventArgs e)
+        {
+            TVPList.Visibility = Visibility.Visible;
+        }
+
+        private void PlayListToShow_MouseLeave(object sender, MouseEventArgs e)
+        {
+            TVPList.Visibility = Visibility.Collapsed;
         }
     }
 }

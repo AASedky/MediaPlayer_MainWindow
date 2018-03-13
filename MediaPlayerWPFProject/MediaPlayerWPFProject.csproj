@@ -89,5 +89,22 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\HawklOGO.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\FF.png" />
+    <Resource Include="imgs\fullscreen.png" />
+    <Resource Include="imgs\music.png" />
+    <Resource Include="imgs\Pause.png" />
+    <Resource Include="imgs\Play.png" />
+    <Resource Include="imgs\Playlist.png" />
+    <Resource Include="imgs\Rewind.png" />
+    <Resource Include="imgs\STOP.png" />
+    <Resource Include="imgs\Video.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\open.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
