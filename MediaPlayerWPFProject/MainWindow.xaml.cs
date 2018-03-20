@@ -37,7 +37,9 @@ namespace MediaPlayerWPFProject
             };
             DT.Tick += DT_Tick;
             SoundBar.Value = 100;
-            
+            DT.Start();
+
+
         }
         private bool OpenMedia()
         {
@@ -50,7 +52,6 @@ namespace MediaPlayerWPFProject
                 _MainMediaPlayer.Source = new Uri(browser.FileName);
                 Title = browser.SafeFileName;
                 _MainMediaPlayer.Play();
-                DT.Start();
                 isOpend =  true;
             }
             return isOpend;
@@ -160,16 +161,7 @@ namespace MediaPlayerWPFProject
         }
 
       
-        private void TreeView_MouseEnter(object sender, MouseEventArgs e)
-        {
-            //TVPList.Visibility = Visibility.Visible;
-        }
-
-        private void TreeView_MouseLeave(object sender, MouseEventArgs e)
-        {
-            //TVPList.Visibility = Visibility.Collapsed;
-
-        }
+      
 
       
 
@@ -193,8 +185,7 @@ namespace MediaPlayerWPFProject
              }
              
             foreach(TreeViewItem element in PlayListRoot.Items)
-            {
-                 
+            {  
                 element.ToolTip = "Double Click to Run";
                 element.MouseDoubleClick += Element_MouseDoubleClick;
             }
@@ -217,6 +208,13 @@ namespace MediaPlayerWPFProject
         private void PlayListToShow_MouseLeave(object sender, MouseEventArgs e)
         {
             TVPList.Visibility = Visibility.Collapsed;
+        }
+
+        private void _MainMediaPlayer_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(TVPList.SelectedItem.ToString());
+            //_MainMediaPlayer.Source = new Uri(TVPList.SelectedItem.ToString());
+            //_MainMediaPlayer.Play();
         }
     }
 }

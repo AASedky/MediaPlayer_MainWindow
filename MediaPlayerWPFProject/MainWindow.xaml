@@ -11,12 +11,12 @@
          Icon="imgs/HawklOGO.png">
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" MinHeight="389" />
         </Grid.RowDefinitions>
-        <MediaElement Stretch="Fill" x:Name="_MainMediaPlayer" LoadedBehavior="Manual"  MediaOpened="_MainMediaPlayer_MediaOpened" RenderTransformOrigin="0.5,0.5" Grid.Row="0" Grid.RowSpan="2" />
+        <MediaElement Stretch="Fill" x:Name="_MainMediaPlayer" LoadedBehavior="Manual"  MediaOpened="_MainMediaPlayer_MediaOpened" RenderTransformOrigin="0.5,0.5" Grid.Row="0" Grid.RowSpan="2" MediaEnded="_MainMediaPlayer_MediaEnded" Margin="4,0,0,0" />
         <Slider DockPanel.Dock="Top"   Name="MediaSlider" Thumb.DragCompleted="MediaSlider_DragCompleted" Margin="0,315,0,56"  Grid.Row="1"/>
-        <DockPanel Margin="63,331,-59,0" RenderTransformOrigin="0.5,0.5" Grid.Row="1" HorizontalAlignment="Center" Width="509" >
+        <DockPanel Margin="203,331,81,0" RenderTransformOrigin="0.5,0.5" Grid.Row="1" HorizontalAlignment="Center" Width="509" >
             <ToolBar DockPanel.Dock="Top" Name="TBMediaControl" Height="50"  
                      ButtonBase.Click="MediaControl_Click" HorizontalContentAlignment="Center" 
                      HorizontalAlignment="Right" Width="509" Background="Transparent">
@@ -90,8 +90,9 @@
                 </Button>
             </ToolBar>
         </DockPanel>
+
         <DockPanel  Background="Transparent" Name="PlayListToShow" HorizontalAlignment="Left" Height="348" LastChildFill="False" Margin="4,5,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="246" MouseEnter="PlayListToShow_MouseEnter" MouseLeave="PlayListToShow_MouseLeave">
-            <TreeView   Name="TVPList" HorizontalAlignment="Left" Height="384" Grid.RowSpan="2" VerticalAlignment="Top" Width="114" MouseEnter="TreeView_MouseEnter" MouseLeave="TreeView_MouseLeave" Visibility="Collapsed">
+            <TreeView   Name="TVPList" HorizontalAlignment="Left" Height="384" Grid.RowSpan="2" VerticalAlignment="Top" Width="206"   Visibility="Collapsed" Margin="0,0,0,-36">
 
                 <TreeViewItem Name="PlayListRoot" Header="Play List"  >
                     <TreeViewItem.ContextMenu>
@@ -109,6 +110,8 @@
             </TreeView>
 
         </DockPanel>
+      
+
 
     </Grid>
 
